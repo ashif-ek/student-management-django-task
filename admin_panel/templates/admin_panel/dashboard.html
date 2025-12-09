@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Admin Dashboard</h2>
+
+<div class="card mt-3">
+  <div class="card-body">
+    <p>Welcome, {{ request.user.username }}.</p>
+    <p>You are logged in as <strong>Admin</strong>.</p>
+  </div>
+</div>
+
+{% endblock %}

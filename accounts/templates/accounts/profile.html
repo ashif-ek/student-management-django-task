@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>My Profile</h3>
+
+<div class="card mt-3">
+  <div class="card-body">
+
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+    <p><strong>Role:</strong> {{ request.user.role }}</p>
+
+    {% if profile %}
+        <hr>
+        <p><strong>Roll Number:</strong> {{ profile.roll_number }}</p>
+        <p><strong>Department:</strong> {{ profile.department }}</p>
+        <p><strong>Year of Admission:</strong> {{ profile.year_of_admission }}</p>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}
