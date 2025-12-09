@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>My Courses</h3>
+
+<ul class="list-group">
+    {% for e in enrollments %}
+        <li class="list-group-item">
+            <strong>{{ e.course.title }}</strong>
+            <br>
+            Assigned on: {{ e.assigned_at }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
