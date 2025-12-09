@@ -63,6 +63,7 @@ def course_enroll(request, id):
 
             # SEND EMAIL HERE (next step)
             
+            
             messages.success(request, "Student assigned to course.")
             return redirect('course_list')
     else:
