@@ -8,6 +8,39 @@
     <p>Welcome, {{ request.user.username }}.</p>
     <p>You are logged in as <strong>Admin</strong>.</p>
   </div>
+      <!-- Student Management Card -->
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title">Student Management</h5>
+                <p class="card-text">Add, Edit, Delete and View Students</p>
+                <a href="{% url 'student_list' %}" class="btn btn-primary w-100">
+                    Manage Students
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title">Course Management</h5>
+                <p class="card-text">Add courses, enroll students, manage classes</p>
+                <a href="/courses-mgmt/" class="btn btn-primary w-100">Open</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title">Reports</h5>
+                <p class="card-text">Analytics, progress reports, data export</p>
+                <a href="#" class="btn btn-primary w-100">Coming Soon</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
