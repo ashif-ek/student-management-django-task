@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .forms import CustomUserRegisterForm, StudentProfileForm
-from .models import StudentProfile
 
 def register_view(request):
     if request.method == 'POST':

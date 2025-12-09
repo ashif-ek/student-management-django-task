@@ -8,7 +8,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('admin-panel/', include('admin_panel.urls')),
     path('student-panel/', include('student_panel.urls')),
-    path('students-mgmt/', include('student_mgmt.urls')),
+    path('student-mgmt/', include('student_mgmt.urls')),
     path('courses-mgmt/', include('courses_mgmt.urls')),
-    path('', RedirectView.as_view(pattern_name='login'), name='home'),
+    path('', RedirectView.as_view(url='/accounts/login/'), name='home'),
 ]

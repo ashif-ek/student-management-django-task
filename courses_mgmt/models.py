@@ -1,7 +1,7 @@
 from django.db import models
-from django.db import models
-from student_mgmt.models import Student
-from . import Course
+from student_mgmt.models import Student   # FIXED IMPORT
+
+
 class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
