@@ -38,9 +38,6 @@ def course_list(request):
 #     return render(request, 'courses/course_list.html', {'courses': courses})
 
 
-
-
-
 @login_required
 @admin_required
 def course_add(request):
