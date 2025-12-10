@@ -3,6 +3,20 @@
 
 <h3>Courses</h3>
 
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-4">
+    <input type="text" name="q" class="form-control"
+           placeholder="Search by title..."
+           value="{{ search_query }}">
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-outline-primary w-100">Search</button>
+  </div>
+  <div class="col-md-2">
+    <a href="{% url 'course_list' %}" class="btn btn-outline-secondary w-100">Reset</a>
+  </div>
+</form>
+
 <a href="{% url 'course_add' %}" class="btn btn-primary mb-3">Add Course</a>
 
 <table class="table table-bordered">
@@ -14,17 +28,52 @@
     </tr>
   </thead>
   <tbody>
-    {% for course in courses %}
-    <tr>
-      <td>{{ course.title }}</td>
-      <td>{{ course.enrollment_set.count }}</td>
-      <td>
-        <a href="{% url 'course_edit' course.id %}" class="btn btn-warning btn-sm">Edit</a>
-        <a href="{% url 'course_enroll' course.id %}" class="btn btn-success btn-sm">Assign Student</a>
-      </td>
-    </tr>
+    {% for course in page_obj %}
+      <tr>
+        <td>
+  {% if course.thumbnail %}
+    <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}"
+         style="height:40px; width:auto; margin-right:8px;">
+  {% endif %}
+  {{ course.title }}
+</td>
+        <td>{{ course.enrollment_set.count }}</td>
+        <td>
+          <a href="{% url 'course_edit' course.id %}" class="btn btn-warning btn-sm">Edit</a>
+          <a href="{% url 'course_enroll' course.id %}" class="btn btn-success btn-sm">Assign Student</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">No courses found.</td>
+      </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<!-- Pagination -->
+<nav aria-label="Course pagination">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?q={{ search_query }}&page={{ page_obj.previous_page_number }}">Prev</a>
+      </li>
+    {% endif %}
+
+    <li class="page-item disabled">
+      <span class="page-link">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+    </li>
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?q={{ search_query }}&page={{ page_obj.next_page_number }}">Next</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
 
 {% endblock %}

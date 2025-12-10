@@ -5,7 +5,7 @@ from student_mgmt.models import Student
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'thumbnail']
 
 
 class EnrollmentForm(forms.ModelForm):
