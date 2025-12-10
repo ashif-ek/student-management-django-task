@@ -103,9 +103,8 @@ def course_enroll(request, id):
 @login_required
 @student_required
 def student_courses(request):
-    student = get_object_or_404(Student, email=request.user.email)
+    student = get_object_or_404(Student, user=request.user)
     enrollments = Enrollment.objects.filter(student=student)
 
-    return render(request, 'courses/student_courses.html', {
-        'enrollments': enrollments
-    })
+    return render(request, 'courses/student_courses.html', 
+        {'enrollments': enrollments})

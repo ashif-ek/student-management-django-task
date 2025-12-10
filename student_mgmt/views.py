@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+
+from accounts.models import CustomUser
 from .models import Student
 from .forms import StudentForm
 from accounts.utils import admin_required
@@ -18,9 +20,23 @@ def student_add(request):
     if request.method == "POST":
         form = StudentForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Student added successfully.")
+
+            # 1. Create CustomUser account
+            user = CustomUser.objects.create_user(
+                username=form.cleaned_data['email'],
+                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password'],
+                role="STUDENT"
+            )
+
+            # 2. Create Student record and link
+            student = form.save(commit=False)
+            student.user = user
+            student.save()
+
+            messages.success(request, "Student added and user account created.")
             return redirect('student_list')
+
     else:
         form = StudentForm()
 

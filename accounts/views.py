@@ -68,3 +68,15 @@ def profile_view(request):
     })
 
 
+from django.core.mail import send_mail
+from django.http import HttpResponse
+
+def test_email(request):
+    send_mail(
+        subject="Test Email from Django + Brevo",
+        message="If you received this, SMTP is working.",
+        from_email=None,  # uses DEFAULT_FROM_EMAIL
+        recipient_list=["ashifek11@gmail.com"],
+        fail_silently=False,
+    )
+    return HttpResponse("Email sent successfully!")
