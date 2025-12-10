@@ -1,5 +1,5 @@
 from django.db import models
-from student_mgmt.models import Student   # FIXED IMPORT
+from student_mgmt.models import Student   
 
 
 class Course(models.Model):

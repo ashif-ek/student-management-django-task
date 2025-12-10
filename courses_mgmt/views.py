@@ -37,7 +37,6 @@ def course_list(request):
 #     courses = Course.objects.order_by('-created_at')
 #     return render(request, 'courses/course_list.html', {'courses': courses})
 
-
 @login_required
 @admin_required
 def course_add(request):
