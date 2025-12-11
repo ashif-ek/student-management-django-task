@@ -5,9 +5,15 @@
 
 <form method="POST">
   {% csrf_token %}
-  {{ form.as_p }}
 
-  <button class="btn btn-primary">Assign</button>
+  <label class="form-label">Select Student</label>
+  <select name="student_id" class="form-select">
+    {% for s in students %}
+      <option value="{{ s.id }}">{{ s.username }} ({{ s.email }})</option>
+    {% endfor %}
+  </select>
+
+  <button class="btn btn-primary mt-3">Enroll</button>
 </form>
 
 {% endblock %}

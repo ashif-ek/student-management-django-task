@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from accounts.utils import admin_required, student_required
 from accounts.models import CustomUser
-from student_mgmt.models import Student
 from .models import Course, Enrollment
 from .forms import CourseForm, EnrollmentForm
 from django.contrib.auth.decorators import login_required
@@ -70,37 +69,36 @@ def course_edit(request, id):
     return render(request, 'courses/course_edit.html', {'form': form})
 
 
+from accounts.models import CustomUser
+
 @login_required
 @admin_required
 def course_enroll(request, id):
     course = get_object_or_404(Course, id=id)
 
     if request.method == "POST":
-        form = EnrollmentForm(request.POST)
-        if form.is_valid():
-            enrollment = form.save(commit=False)
-            enrollment.course = course
-            enrollment.save()
+        user_id = request.POST.get("student_id")
+        student = CustomUser.objects.get(id=user_id)
 
-            # SEND EMAIL HERE (next step)
-            
-            
-            messages.success(request, "Student assigned to course.")
-            return redirect('course_list')
-    else:
-        form = EnrollmentForm()
+        Enrollment.objects.create(student=student, course=course)
+
+        messages.success(request, "Student enrolled successfully.")
+        return redirect('course_list')
+
+    students = CustomUser.objects.filter(role="STUDENT")
 
     return render(request, 'courses/course_enroll.html', {
         'course': course,
-        'form': form
+        'students': students,
     })
+
 
 
 @login_required
 @student_required
 def student_courses(request):
-    student = get_object_or_404(Student, user=request.user)
-    enrollments = Enrollment.objects.filter(student=student)
+    enrollments = Enrollment.objects.filter(student=request.user)
 
-    return render(request, 'courses/student_courses.html', 
-        {'enrollments': enrollments})
+    return render(request, 'courses/student_courses.html', {
+        'enrollments': enrollments
+    })

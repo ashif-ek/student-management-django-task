@@ -1,5 +1,5 @@
 from django.db import models
-from student_mgmt.models import Student   
+from accounts.models import CustomUser
 
 
 class Course(models.Model):
@@ -17,10 +17,11 @@ class Course(models.Model):
         return self.title
 
 
+
 class Enrollment(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     assigned_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.student.name} → {self.course.title}"
+        return f"{self.student.username} → {self.course.title}"
