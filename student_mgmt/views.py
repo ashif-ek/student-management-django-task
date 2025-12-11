@@ -1,70 +1,72 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
-from accounts.models import CustomUser
-from .models import Student
-from .forms import StudentForm
+from accounts.models import CustomUser, StudentProfile
 from accounts.utils import admin_required
 from django.contrib.auth.decorators import login_required
+
 
 @login_required
 @admin_required
 def student_list(request):
-    students = Student.objects.order_by('-created_at')
-    return render(request, 'students/student_list.html', {'students': students})
+    students = StudentProfile.objects.all()
+    return render(request, "student_mgmt/student_list.html", {"students": students})
 
 
 @login_required
 @admin_required
 def student_add(request):
     if request.method == "POST":
-        form = StudentForm(request.POST)
-        if form.is_valid():
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        roll = request.POST['roll_number']
+        dept = request.POST['department']
+        year = request.POST['year']
 
-            # 1. Create CustomUser account
-            user = CustomUser.objects.create_user(
-                username=form.cleaned_data['email'],
-                email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
-                role="STUDENT"
-            )
+        user = CustomUser.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
+            role="STUDENT"
+        )
 
-            # 2. Create Student record and link
-            student = form.save(commit=False)
-            student.user = user
-            student.save()
+        StudentProfile.objects.create(
+            user=user,
+            roll_number=roll,
+            department=dept,
+            year_of_admission=year
+        )
 
-            messages.success(request, "Student added and user account created.")
-            return redirect('student_list')
+        messages.success(request, "Student created successfully")
+        return redirect("student_list")
 
-    else:
-        form = StudentForm()
-
-    return render(request, 'students/student_add.html', {'form': form})
+    return render(request, "student_mgmt/student_add.html")
 
 
 @login_required
 @admin_required
 def student_edit(request, id):
-    student = get_object_or_404(Student, id=id)
+    profile = get_object_or_404(StudentProfile, id=id)
 
     if request.method == "POST":
-        form = StudentForm(request.POST, instance=student)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Student updated successfully.")
-            return redirect('student_list')
-    else:
-        form = StudentForm(instance=student)
+        profile.roll_number = request.POST['roll_number']
+        profile.department = request.POST['department']
+        profile.year_of_admission = request.POST['year']
+        profile.save()
 
-    return render(request, 'students/student_edit.html', {'form': form})
+        messages.success(request, "Student updated successfully.")
+        return redirect("student_list")
+
+    return render(request, "student_mgmt/student_edit.html", {"profile": profile})
 
 
 @login_required
 @admin_required
 def student_delete(request, id):
-    student = get_object_or_404(Student, id=id)
-    student.delete()
+    profile = get_object_or_404(StudentProfile, id=id)
+    profile.user.delete()   
+    profile.delete()
 
-    messages.warning(request, "Student deleted.")
-    return redirect('student_list')
+    messages.warning(request, "Student deleted successfully")
+    return redirect("student_list")
