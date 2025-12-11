@@ -1,13 +1,38 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
 
-<h3>Edit Student</h3>
+<div class="container mt-4">
+    <h2>Edit Student</h2>
+    <hr>
 
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
+    <form method="POST">
+        {% csrf_token %}
 
-  <button class="btn btn-primary">Update</button>
-</form>
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label>Roll Number</label>
+                <input type="text" name="roll_number" class="form-control"
+                       value="{{ profile.roll_number }}" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Department</label>
+                <input type="text" name="department" class="form-control"
+                       value="{{ profile.department }}" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Year of Admission</label>
+                <input type="number" name="year" class="form-control"
+                       value="{{ profile.year_of_admission }}" required>
+            </div>
+
+        </div>
+
+        <button class="btn btn-primary">Update</button>
+        <a href="{% url 'student_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 
 {% endblock %}

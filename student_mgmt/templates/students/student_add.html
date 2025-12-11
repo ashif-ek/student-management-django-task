@@ -1,13 +1,48 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
 
-<h3>Add Student</h3>
+<div class="container mt-4">
+    <h2>Add Student</h2>
+    <hr>
 
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
+    <form method="POST">
+        {% csrf_token %}
 
-  <button class="btn btn-success">Save</button>
-</form>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Roll Number</label>
+                <input type="text" name="roll_number" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Department</label>
+                <input type="text" name="department" class="form-control" required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label>Year of Admission</label>
+                <input type="number" name="year" class="form-control" required>
+            </div>
+        </div>
+
+        <button class="btn btn-primary">Add Student</button>
+        <a href="{% url 'student_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 
 {% endblock %}
