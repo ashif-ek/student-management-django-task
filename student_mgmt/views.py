@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 @admin_required
 def student_list(request):
     students = StudentProfile.objects.all()
-    return render(request, "student_mgmt/student_list.html", {"students": students})
+    return render(request, "students/student_list.html", {"students": students})
 
 
 @login_required
@@ -41,7 +41,7 @@ def student_add(request):
         messages.success(request, "Student created successfully")
         return redirect("student_list")
 
-    return render(request, "student_mgmt/student_add.html")
+    return render(request, "students/student_add.html")
 
 
 @login_required
@@ -58,7 +58,7 @@ def student_edit(request, id):
         messages.success(request, "Student updated successfully.")
         return redirect("student_list")
 
-    return render(request, "student_mgmt/student_edit.html", {"profile": profile})
+    return render(request, "students/student_edit.html", {"profile": profile})
 
 
 @login_required
