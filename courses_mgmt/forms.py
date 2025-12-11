@@ -1,6 +1,6 @@
 from django import forms
 from .models import Course, Enrollment
-from student_mgmt.models import Student
+from accounts.models import CustomUser
 
 class CourseForm(forms.ModelForm):
     class Meta:
@@ -8,8 +8,11 @@ class CourseForm(forms.ModelForm):
         fields = ['title', 'description', 'thumbnail']
 
 
+
 class EnrollmentForm(forms.ModelForm):
-    student = forms.ModelChoiceField(queryset=Student.objects.all())
+    student = forms.ModelChoiceField(
+        queryset=CustomUser.objects.filter(role="STUDENT")
+    )
 
     class Meta:
         model = Enrollment
