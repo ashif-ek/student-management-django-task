@@ -3,32 +3,54 @@
 
 <h3>My Courses</h3>
 
-<ul class="list-group">
-    {% for e in enrollments %}
-        <li class="list-group-item">
-            <strong>{{ e.course.title }}</strong>
-            <br>
-            Assigned on: {{ e.assigned_at }}
-        </li>
+{% if enrollments %}
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Description</th>
+            <th>Assigned Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for e in enrollments %}
-<tr>
-    <td>{{ e.course.title }}</td>
-    <td>{{ e.course.description|truncatewords:15 }}</td>
+        <tr>
+<td>
+    <img src="{{ e.course.thumbnail.url }}" 
+         alt="{{ e.course.title }}" 
+         width="120"
+         style="border-radius: 6px; object-fit: cover;">
+</td>                        <td><strong>{{ e.course.title }}</strong></td>
 
-    {% if e.completed %}
-        <td><span class="badge bg-success">Completed</span></td>
-    {% else %}
-        <td>
-            <a href="{% url 'complete_course' e.id %}" 
-               class="btn btn-sm btn-primary">
-                Mark Completed
-            </a>
-        </td>
-    {% endif %}
-</tr>
-{% endfor %}
-
-    {% endfor %}
-</ul>
+            <td>{{ e.course.description|truncatewords:10 }}</td>
+            <td>{{ e.assigned_at|date:"M d, Y" }}</td>
+            <td>
+                {% if e.completed %}
+                <span class="badge bg-success">Completed</span>
+                {% else %}
+                <span class="badge bg-warning text-dark">In Progress</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not e.completed %}
+                <a href="{% url 'complete_course' e.id %}" class="btn btn-sm btn-primary"
+                    onclick="return confirm('Are you sure you want to mark this course as completed?');">
+                    Mark Completed
+                </a>
+                {% else %}
+                <span class="text-muted">No actions</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info mt-3">
+    You have not been assigned any courses yet.
+</div>
+{% endif %}
 
 {% endblock %}

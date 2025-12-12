@@ -1,0 +1,14 @@
+User with email ashifek11@gmail.com exists: True
+Listing all users:
+  ashifek: ashifek11@gmail.com
+  ashif1: ashifek11@gmail.com
+  new@gmail.com: new@gmail.com
+  arshaq@gmail.com: arshaq@gmail.com
+  vazin: vazin@gamil.com
+  ashif: ashifek11@gmail.com
+  muhammed ashif: muhammedashif@gmail.com
+  admin1: iwouldliketoknowthat@gmail.com
+  rahees: rahees@gmail.com
+  sreenand: sreenand@gmail.com
+  admin: ashifek@gmail.com
+  arshaq: arshaq@gmail.com
