@@ -7,6 +7,9 @@ from .forms import CourseForm, EnrollmentForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
+from django.utils import timezone
+from django.contrib import messages
+
 
 @login_required
 @admin_required
@@ -102,3 +105,18 @@ def student_courses(request):
     return render(request, 'courses/student_courses.html', {
         'enrollments': enrollments
     })
+
+
+
+
+@login_required
+@student_required
+def complete_course(request, enrollment_id):
+    enrollment = get_object_or_404(Enrollment, id=enrollment_id, student=request.user)
+    
+    enrollment.completed = True
+    enrollment.completed_at = timezone.now()
+    enrollment.save()
+
+    messages.success(request, "Course marked as completed.")
+    return redirect('student_courses')

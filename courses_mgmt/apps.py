@@ -6,3 +6,5 @@ class CoursesConfig(AppConfig):
 
     def ready(self):
         import courses_mgmt.signals  # noqa
+
+
