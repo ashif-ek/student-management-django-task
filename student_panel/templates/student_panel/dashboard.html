@@ -1,73 +1,54 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2 class="mb-4">Student Dashboard</h2>
+<!-- Page Header -->
+<div class="mb-4">
+  <h2 class="fw-semibold mb-1">Student Dashboard</h2>
+  <p class="text-muted small mb-0">
+    Overview of your courses and academic activity
+  </p>
+</div>
 
-<div class="card">
-  <div class="card-body">
-    <p class="mb-1">
-      Welcome, <strong>{{ request.user.username }}</strong>
-    </p>
-    <small class="text-muted">Role: Student</small>
+<!-- Welcome Strip -->
+<div class="border rounded-3 bg-white p-4 mb-4">
+  <p class="mb-1">
+    Welcome back,
+    <span class="fw-semibold">{{ request.user.username }}</span>
+  </p>
+  <p class="text-muted small mb-0">
+    Role: Student
+  </p>
+</div>
+
+<!-- Primary Actions -->
+<div class="row g-4">
+
+  <!-- My Courses -->
+  <div class="col-md-6">
+    <div class="border rounded-3 bg-white p-4 h-100">
+      <h6 class="fw-semibold mb-2">My Courses</h6>
+      <p class="text-muted small mb-4">
+        View courses you are enrolled in and track your progress.
+      </p>
+      <a href="{% url 'student_courses' %}" class="btn btn-outline-primary">
+        View courses
+      </a>
+    </div>
   </div>
+
+  <!-- Profile -->
+  <div class="col-md-6">
+    <div class="border rounded-3 bg-white p-4 h-100">
+      <h6 class="fw-semibold mb-2">My Profile</h6>
+      <p class="text-muted small mb-4">
+        Update your personal information and academic details.
+      </p>
+      <a href="{% url 'profile' %}" class="btn btn-outline-secondary">
+        View profile
+      </a>
+    </div>
+  </div>
+
 </div>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} {% extends 'base.html' %}
-{% block content %}
-
-<h2>Student Dashboard</h2>
-
-<div class="card mt-3">
-  <div class="card-body">
-    <p>Welcome, {{ request.user.username }}.</p>
-    <p>You are logged in as <strong>Student</strong>.</p>
-  </div>
-</div>
-
-{% endblock %} {% endcomment %}

@@ -1,23 +1,58 @@
 {% extends 'base.html' %}
+{% block title %}My Profile · StudentMgmt{% endblock %}
+
 {% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
 
-<h3>My Profile</h3>
+    <!-- Page Header -->
+    <div class="mb-4">
+      <h3 class="fw-semibold mb-1">My Profile</h3>
+      <p class="text-muted small mb-0">
+        View and manage your account information
+      </p>
+    </div>
 
-<div class="card mt-3">
-  <div class="card-body">
+    <!-- Account Section -->
+    <div class="mb-5">
+      <h6 class="text-uppercase text-muted fw-semibold small mb-3">
+        Account information
+      </h6>
 
-    <p><strong>Username:</strong> {{ request.user.username }}</p>
-    <p><strong>Email:</strong> {{ request.user.email }}</p>
-    <p><strong>Role:</strong> {{ request.user.role }}</p>
+      <div class="row gy-3">
+        <div class="col-md-4 text-muted small">Username</div>
+        <div class="col-md-8 fw-medium">{{ request.user.username }}</div>
+
+        <div class="col-md-4 text-muted small">Email address</div>
+        <div class="col-md-8 fw-medium">{{ request.user.email|default:"—" }}</div>
+
+        <div class="col-md-4 text-muted small">Role</div>
+        <div class="col-md-8 fw-medium text-uppercase">
+          {{ request.user.role }}
+        </div>
+      </div>
+    </div>
 
     {% if profile %}
-        <hr>
-        <p><strong>Roll Number:</strong> {{ profile.roll_number }}</p>
-        <p><strong>Department:</strong> {{ profile.department }}</p>
-        <p><strong>Year of Admission:</strong> {{ profile.year_of_admission }}</p>
+    <!-- Student Section -->
+    <div>
+      <h6 class="text-uppercase text-muted fw-semibold small mb-3">
+        Student profile
+      </h6>
+
+      <div class="row gy-3">
+        <div class="col-md-4 text-muted small">Roll number</div>
+        <div class="col-md-8 fw-medium">{{ profile.roll_number }}</div>
+
+        <div class="col-md-4 text-muted small">Department</div>
+        <div class="col-md-8 fw-medium">{{ profile.department }}</div>
+
+        <div class="col-md-4 text-muted small">Year of admission</div>
+        <div class="col-md-8 fw-medium">{{ profile.year_of_admission }}</div>
+      </div>
+    </div>
     {% endif %}
 
   </div>
 </div>
-
 {% endblock %}

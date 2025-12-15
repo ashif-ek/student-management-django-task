@@ -1,19 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>Assign Student to {{ course.title }}</h3>
+<div class="mb-4">
+  <h2 class="fw-semibold mb-1">
+    Assign student
+  </h2>
+  <p class="text-muted small mb-0">
+    Course: {{ course.title }}
+  </p>
+</div>
 
-<form method="POST">
+<form method="post" class="col-md-6">
   {% csrf_token %}
 
-  <label class="form-label">Select Student</label>
-  <select name="student_id" class="form-select">
-    {% for s in students %}
-      <option value="{{ s.id }}">{{ s.username }} ({{ s.email }})</option>
-    {% endfor %}
-  </select>
+  <div class="mb-3">
+    <label class="form-label">Student</label>
+    <select name="student_id" class="form-select">
+      {% for s in students %}
+        <option value="{{ s.id }}">
+          {{ s.username }} — {{ s.email }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
 
-  <button class="btn btn-primary mt-3">Enroll</button>
+  <button class="btn btn-primary">
+    Enroll student
+  </button>
 </form>
 
 {% endblock %}

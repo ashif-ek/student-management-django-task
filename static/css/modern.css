@@ -1,0 +1,162 @@
+/* Google-like Modern Styling Overrides */
+
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --primary-color: #1a73e8;
+    /* Google Blue */
+    --secondary-color: #e8f0fe;
+    /* Light Blue BG */
+    --text-primary: #202124;
+    --text-secondary: #5f6368;
+    --bg-surface: #ffffff;
+    --bg-background: #f8f9fa;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --shadow-sm: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-background);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand {
+    font-family: 'Google Sans', sans-serif;
+    font-weight: 500;
+}
+
+/* Navbar Modernization */
+.navbar {
+    background-color: var(--bg-surface) !important;
+    box-shadow: var(--shadow-sm);
+    padding: 1rem 1.5rem;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: var(--primary-color) !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
+    transition: all 0.2s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+/* Button Overrides */
+.btn {
+    border-radius: var(--radius-pill);
+    padding: 8px 24px;
+    font-weight: 500;
+    font-family: 'Google Sans', sans-serif;
+    transition: all 0.2s ease;
+    border: none;
+    letter-spacing: 0.25px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #1557b0;
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: var(--bg-surface);
+    color: var(--primary-color);
+    border: 1px solid #dadce0;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-color);
+    color: #174ea6;
+    border-color: var(--secondary-color);
+}
+
+/* Card Modernization */
+.card {
+    border: none;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    background-color: var(--bg-surface);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid #f1f3f4;
+    padding: 1.25rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Form Inputs */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #dadce0;
+    padding: 10px 14px;
+    font-size: 15px;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+/* Layout Container */
+.container {
+    max-width: 1140px;
+}
+
+/* Authentication Cards (Login/Register) */
+.auth-card {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+}
+
+.auth-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+}

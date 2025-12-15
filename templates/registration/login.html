@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign In - StudentAI{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Centered Login Card Layout */
+    body {
+        background-color: #f0f4f8;
+        /* Very light blueish gray */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .layout-container {
+        display: block;
+        /* Override flex */
+        width: 100%;
+        max-width: 450px;
+        margin: auto;
+    }
+
+    .sidebar,
+    .top-app-bar {
+        display: none !important;
+        /* Hide sidebar/header on login */
+    }
+
+    .main-content {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+    }
+
+    .login-card {
+        background: white;
+        padding: 48px 40px 36px;
+        border-radius: 28px;
+        /* Extra large corners */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        text-align: center;
+    }
+
+    .logo-area {
+        margin-bottom: 16px;
+    }
+
+    .login-title {
+        font-family: 'Google Sans', sans-serif;
+        font-size: 24px;
+        color: var(--md-sys-color-on-surface);
+        margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+        font-size: 16px;
+        color: var(--md-sys-color-on-surface-variant);
+        margin-bottom: 40px;
+    }
+
+    .form-group {
+        text-align: left;
+        margin-bottom: 24px;
+    }
+
+    .btn-login {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        margin-top: 24px;
+    }
+
+    .links-area {
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+    }
+
+    .links-area a {
+        color: var(--md-sys-color-primary);
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 4px;
+        padding: 4px 8px;
+    }
+
+    .links-area a:hover {
+        background-color: var(--md-sys-color-primary-container);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-card">
+    <div class="logo-area">
+        <span class="material-symbols-outlined"
+            style="font-size: 48px; color: var(--md-sys-color-primary);">school</span>
+    </div>
+
+    <h1 class="login-title">Sign in</h1>
+    <p class="login-subtitle">to continue to StudentAI</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Username -->
+        <div class="input-material-group">
+            <input type="text" name="username" id="id_username" class="input-material" placeholder=" " required
+                autofocus>
+            <label for="id_username" class="input-material-label">Username</label>
+        </div>
+
+        <!-- Password -->
+        <div class="input-material-group" style="margin-bottom: 8px;">
+            <input type="password" name="password" id="id_password" class="input-material" placeholder=" " required>
+            <label for="id_password" class="input-material-label">Password</label>
+        </div>
+
+        {% if form.errors %}
+        <div style="color: #b3261e; font-size: 12px; text-align: left; margin-bottom: 16px;">
+            Invalid username or password.
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn-material btn-filled btn-login">
+            Next
+        </button>
+    </form>
+
+    <div class="links-area">
+        <a href="{% url 'password_reset' %}">Forgot email?</a>
+        <a href="{% url 'register' %}">Create account</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,10 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Add Course</h3>
 
-  <form method="post" enctype="multipart/form-data">
+<!-- Page Header -->
+<div class="mb-4">
+  <h2 class="fw-semibold mb-1">Add course</h2>
+  <p class="text-muted small mb-0">
+    Create a new course and make it available for student enrollment
+  </p>
+</div>
+
+<!-- Form -->
+<form method="post"
+      enctype="multipart/form-data"
+      class="col-md-6">
+
   {% csrf_token %}
+
+  <!-- Course Form Fields -->
   {{ form.as_p }}
-  <button class="btn btn-success">Save</button>
+
+  <!-- Actions -->
+  <div class="d-flex gap-2 mt-3">
+    <button type="submit" class="btn btn-primary">
+      Save course
+    </button>
+    <a href="{% url 'course_list' %}" class="btn btn-outline-secondary">
+      Cancel
+    </a>
+  </div>
 </form>
+
 {% endblock %}

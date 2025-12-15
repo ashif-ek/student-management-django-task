@@ -1,55 +1,79 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>My Courses</h3>
+<!-- Page Header -->
+<div class="mb-4">
+  <h2 class="fw-semibold mb-1">My Courses</h2>
+  <p class="text-muted small mb-0">
+    Courses you are currently enrolled in
+  </p>
+</div>
 
 {% if enrollments %}
-<table class="table table-striped mt-3">
-    <thead>
-        <tr>
-            <th>Course</th>
-            <th>Description</th>
-            <th>Assigned Date</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+<div class="table-responsive">
+  <table class="table align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Course</th>
+        <th>Description</th>
+        <th>Assigned</th>
+        <th>Status</th>
+        <th class="text-end">Action</th>
+      </tr>
     </thead>
     <tbody>
-        {% for e in enrollments %}
-        <tr>
-<td>
-    <img src="{{ e.course.thumbnail.url }}" 
-         alt="{{ e.course.title }}" 
-         width="120"
-         style="border-radius: 6px; object-fit: cover;">
-</td>                        <td><strong>{{ e.course.title }}</strong></td>
+      {% for e in enrollments %}
+      <tr>
+        <td class="d-flex align-items-center gap-3">
+          {% if e.course.thumbnail %}
+            <img src="{{ e.course.thumbnail.url }}"
+                 alt="{{ e.course.title }}"
+                 width="56"
+                 height="40"
+                 class="rounded object-fit-cover">
+          {% endif %}
+          <span class="fw-medium">{{ e.course.title }}</span>
+        </td>
 
-            <td>{{ e.course.description|truncatewords:10 }}</td>
-            <td>{{ e.assigned_at|date:"M d, Y" }}</td>
-            <td>
-                {% if e.completed %}
-                <span class="badge bg-success">Completed</span>
-                {% else %}
-                <span class="badge bg-warning text-dark">In Progress</span>
-                {% endif %}
-            </td>
-            <td>
-                {% if not e.completed %}
-                <a href="{% url 'complete_course' e.id %}" class="btn btn-sm btn-primary"
-                    onclick="return confirm('Are you sure you want to mark this course as completed?');">
-                    Mark Completed
-                </a>
-                {% else %}
-                <span class="text-muted">No actions</span>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
+        <td class="text-muted small">
+          {{ e.course.description|truncatewords:12 }}
+        </td>
+
+        <td class="small">
+          {{ e.assigned_at|date:"M d, Y" }}
+        </td>
+
+        <td>
+          {% if e.completed %}
+            <span class="badge bg-success-subtle text-success">
+              Completed
+            </span>
+          {% else %}
+            <span class="badge bg-warning-subtle text-dark">
+              In progress
+            </span>
+          {% endif %}
+        </td>
+
+        <td class="text-end">
+          {% if not e.completed %}
+            <a href="{% url 'complete_course' e.id %}"
+               class="btn btn-sm btn-outline-primary"
+               onclick="return confirm('Mark this course as completed?');">
+              Mark complete
+            </a>
+          {% else %}
+            <span class="text-muted small">—</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
     </tbody>
-</table>
+  </table>
+</div>
 {% else %}
-<div class="alert alert-info mt-3">
-    You have not been assigned any courses yet.
+<div class="alert alert-info">
+  You are not enrolled in any courses yet.
 </div>
 {% endif %}
 
