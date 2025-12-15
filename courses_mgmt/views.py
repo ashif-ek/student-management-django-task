@@ -43,7 +43,7 @@ def course_list(request):
 @admin_required
 def course_add(request):
     if request.method == "POST":
-        form = CourseForm(request.POST, request.FILES)  # request.FILES added
+        form = CourseForm(request.POST, request.FILES)  
         if form.is_valid():
             form.save()
             messages.success(request, "Course added successfully.")

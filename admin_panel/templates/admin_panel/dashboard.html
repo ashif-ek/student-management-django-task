@@ -1,6 +1,98 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <p class="mb-1">Welcome, <strong>{{ request.user.username }}</strong></p>
+    <small class="text-muted">Role: Admin</small>
+  </div>
+</div>
+
+<div class="row g-4">
+
+  <!-- Student Management -->
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">Student Management</h5>
+        <p class="card-text">Add, edit, delete, and view students.</p>
+        <a href="{% url 'student_list' %}" class="btn btn-primary w-100">
+          Manage Students
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Course Management -->
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">Course Management</h5>
+        <p class="card-text">Manage courses and student enrollments.</p>
+        <a href="{% url 'course_list' %}" class="btn btn-primary w-100">
+          Manage Courses
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports -->
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title">Reports</h5>
+        <p class="card-text">Analytics and data exports.</p>
+        <button class="btn btn-secondary w-100" disabled>
+          Coming Soon
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% block content %}
+
 <h2>Admin Dashboard</h2>
 
 <div class="card mt-3">
@@ -43,4 +135,4 @@
 
 </div>
 
-{% endblock %}
+{% endblock %} {% endcomment %}
